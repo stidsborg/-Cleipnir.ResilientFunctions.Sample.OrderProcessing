@@ -2,10 +2,10 @@
 
 public interface ILogisticsClient
 {
-    Task ShipProducts(IEnumerable<string> productIds);
+    Task ShipProducts(Guid customerId, IEnumerable<Guid> productIds);
 }
 
 public class LogisticsClientStub : ILogisticsClient
 {
-    public Task ShipProducts(IEnumerable<string> productIds) => Task.CompletedTask;
+    public Task ShipProducts(Guid customerId, IEnumerable<Guid> productIds) => Task.CompletedTask;
 }

@@ -7,6 +7,7 @@ namespace Orders.DataAccess;
 public interface IOrdersRepository
 {
     Task<bool> Insert(Order order);
+    Task DeleteAllEntries();
 }
 
 public class OrdersRepository : IOrdersRepository
@@ -19,18 +20,24 @@ public class OrdersRepository : IOrdersRepository
         await using var conn = await _sqlConnectionFactory.Create();
         var affectedRows = await conn.ExecuteAsync(@"
             INSERT INTO orders 
-                (order_id, products, customer_email)
+                (order_id, products, customer_id)
             VALUES
                 (@OrderId, @Products, @CustomerEmail)
             ON CONFLICT DO NOTHING;",
             new
             {
-                OrderId = order.OrderId, 
+                order.OrderId, 
                 Products = JsonSerializer.Serialize(order.ProductIds), 
-                CustomerEmail = order.CustomerEmail
+                order.CustomerId
             }
         );
 
         return affectedRows == 1;
+    }
+
+    public async Task DeleteAllEntries()
+    {
+        await using var conn = await _sqlConnectionFactory.Create();
+        await conn.ExecuteAsync("TRUNCATE TABLE orders");
     }
 }

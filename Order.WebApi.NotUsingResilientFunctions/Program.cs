@@ -50,9 +50,9 @@ internal static class Program
         await using var conn = await SqlConnectionFactory.Create(connectionString);
         await conn.ExecuteAsync(@"
             CREATE TABLE IF NOT EXISTS orders (
-                order_id VARCHAR(36) PRIMARY KEY,
+                order_id UUID PRIMARY KEY,
                 products TEXT,
-                customer_email VARCHAR(255)
+                customer_id UUID
             );"
         );
     }

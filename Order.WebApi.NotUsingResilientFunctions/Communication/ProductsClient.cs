@@ -4,16 +4,16 @@ namespace Orders.Communication;
 
 public interface IProductsClient
 {
-    Task<IEnumerable<ProductPrice>> GetProductPrices(IEnumerable<string> productIds);
+    Task<IEnumerable<ProductPrice>> GetProductPrices(IEnumerable<Guid> productIds);
 }
 
 public class ProductsClientStub : IProductsClient
 {
-    private readonly Dictionary<string, decimal> _prices = new();
+    private readonly Dictionary<Guid, decimal> _prices = new();
     private readonly object _sync = new();
     private readonly Random _random = new();
 
-    public Task<IEnumerable<ProductPrice>> GetProductPrices(IEnumerable<string> productIds)
+    public Task<IEnumerable<ProductPrice>> GetProductPrices(IEnumerable<Guid> productIds)
     {
         lock (_sync)
         {

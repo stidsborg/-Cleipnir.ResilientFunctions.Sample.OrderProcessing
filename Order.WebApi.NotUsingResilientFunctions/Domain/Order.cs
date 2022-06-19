@@ -1,3 +1,3 @@
 ﻿namespace Orders.Domain;
 
-public record Order(string OrderId, string CustomerEmail, IEnumerable<string> ProductIds);
+public record Order(string OrderId, Guid CustomerId, IEnumerable<Guid> ProductIds);

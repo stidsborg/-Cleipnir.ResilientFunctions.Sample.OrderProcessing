@@ -1,3 +1,3 @@
 ﻿namespace Orders.Domain;
 
-public record ProductPrice(string ProductId, decimal Price);
+public record ProductPrice(Guid ProductId, decimal Price);

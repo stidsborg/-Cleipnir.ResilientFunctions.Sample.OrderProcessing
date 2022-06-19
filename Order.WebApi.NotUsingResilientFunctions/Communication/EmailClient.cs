@@ -2,10 +2,10 @@
 
 public interface IEmailClient
 {
-    Task SendOrderConfirmation(string email, IEnumerable<string> productIds);
+    Task SendOrderConfirmation(Guid customerId, IEnumerable<Guid> productIds);
 }
 
 public class EmailClientStub : IEmailClient
 {
-    public Task SendOrderConfirmation(string email, IEnumerable<string> productIds) => Task.CompletedTask;
+    public Task SendOrderConfirmation(Guid customerId, IEnumerable<Guid> productIds) => Task.CompletedTask;
 }

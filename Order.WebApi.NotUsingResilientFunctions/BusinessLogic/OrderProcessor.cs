@@ -33,9 +33,9 @@ public class OrderProcessor
         
         var bankTransactionId = Guid.NewGuid();
         await _bankClient.Reserve(bankTransactionId, totalPrice);
-        await _logisticsClient.ShipProducts(order.ProductIds);
+        await _logisticsClient.ShipProducts(order.CustomerId, order.ProductIds);
         await _bankClient.Capture(bankTransactionId);
-        await _emailClient.SendOrderConfirmation(order.CustomerEmail, order.ProductIds);
+        await _emailClient.SendOrderConfirmation(order.CustomerId, order.ProductIds);
 
         await _ordersRepository.Insert(order);
     }
