@@ -1,8 +1,7 @@
-﻿using Orders.Communication;
-using Orders.DataAccess;
-using Orders.Domain;
+﻿using Order.WebApi.Communication;
+using Order.WebApi.DataAccess;
 
-namespace Orders.BusinessLogic;
+namespace Order.WebApi.BusinessLogic;
 
 public class OrderProcessor
 {
@@ -26,15 +25,14 @@ public class OrderProcessor
         _ordersRepository = ordersRepository;
     }
 
-    public async Task CompleteOrder(Order order)
+    public async Task CompleteOrder(Domain.Order order)
     {
         var productPrices = await _productsClient.GetProductPrices(order.ProductIds);
         var totalPrice = productPrices.Sum(p => p.Price);
         
-        var bankTransactionId = Guid.NewGuid();
-        await _bankClient.Reserve(bankTransactionId, totalPrice);
+        await _bankClient.Reserve(totalPrice);
         await _logisticsClient.ShipProducts(order.CustomerId, order.ProductIds);
-        await _bankClient.Capture(bankTransactionId);
+        await _bankClient.Capture();
         await _emailClient.SendOrderConfirmation(order.CustomerId, order.ProductIds);
 
         await _ordersRepository.Insert(order);

@@ -1,12 +1,11 @@
 ﻿using System.Text.Json;
 using Dapper;
-using Orders.Domain;
 
-namespace Orders.DataAccess;
+namespace Order.WebApi.DataAccess;
 
 public interface IOrdersRepository
 {
-    Task<bool> Insert(Order order);
+    Task<bool> Insert(Domain.Order order);
     Task DeleteAllEntries();
 }
 
@@ -15,7 +14,7 @@ public class OrdersRepository : IOrdersRepository
     private readonly SqlConnectionFactory _sqlConnectionFactory;
     public OrdersRepository(SqlConnectionFactory sqlConnectionFactory) => _sqlConnectionFactory = sqlConnectionFactory;
 
-    public async Task<bool> Insert(Order order)
+    public async Task<bool> Insert(Domain.Order order)
     {
         await using var conn = await _sqlConnectionFactory.Create();
         var affectedRows = await conn.ExecuteAsync(@"

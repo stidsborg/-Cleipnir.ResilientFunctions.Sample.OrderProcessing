@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Orders.BusinessLogic;
-using Orders.Domain;
+using Order.WebApi.BusinessLogic;
 
-namespace Orders.Controllers;
+namespace Order.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -18,7 +17,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task Post(Order order)
+    public async Task Post(Domain.Order order)
     {
         try
         {

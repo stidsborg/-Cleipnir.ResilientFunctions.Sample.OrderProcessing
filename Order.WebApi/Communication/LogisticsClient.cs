@@ -1,4 +1,4 @@
-﻿namespace Orders.Communication;
+﻿namespace Order.WebApi.Communication;
 
 public interface ILogisticsClient
 {

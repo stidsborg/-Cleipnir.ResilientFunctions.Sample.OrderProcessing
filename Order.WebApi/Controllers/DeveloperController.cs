@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Orders.BusinessLogic;
-using Orders.DataAccess;
-using Orders.Domain;
+using Order.WebApi.DataAccess;
 
-namespace Orders.Controllers;
+namespace Order.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
