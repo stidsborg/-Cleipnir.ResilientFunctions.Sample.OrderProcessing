@@ -27,6 +27,7 @@ public class OrderProcessor
 
     public async Task CompleteOrder(Domain.Order order)
     {
+        Console.WriteLine($"Started {nameof(CompleteOrder)} invocation");
         var productPrices = await _productsClient.GetProductPrices(order.ProductIds);
         var totalPrice = productPrices.Sum(p => p.Price);
         
@@ -36,5 +37,6 @@ public class OrderProcessor
         await _emailClient.SendOrderConfirmation(order.CustomerId, order.ProductIds);
 
         await _ordersRepository.Insert(order);
+        Console.WriteLine($"Completed {nameof(CompleteOrder)} invocation");
     }
 }
