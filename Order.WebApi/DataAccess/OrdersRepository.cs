@@ -21,7 +21,7 @@ public class OrdersRepository : IOrdersRepository
             INSERT INTO orders 
                 (order_id, products, customer_id)
             VALUES
-                (@OrderId, @Products, @CustomerEmail)
+                (@OrderId, @Products, @CustomerId)
             ON CONFLICT DO NOTHING;",
             new
             {
