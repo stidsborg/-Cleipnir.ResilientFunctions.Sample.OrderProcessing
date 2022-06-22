@@ -5,6 +5,7 @@ namespace Order.WebApi.BusinessLogic;
 
 public class OrderProcessor
 {
+    private readonly ILogger<OrderProcessor> _logger;
     private readonly IBankClient _bankClient;
     private readonly IProductsClient _productsClient;
     private readonly IEmailClient _emailClient;
@@ -12,12 +13,14 @@ public class OrderProcessor
     private readonly IOrdersRepository _ordersRepository;
 
     public OrderProcessor(
+        ILogger<OrderProcessor> logger,
         IBankClient bankClient, 
         IProductsClient productsClient, 
         IEmailClient emailClient, 
         ILogisticsClient logisticsClient, 
         IOrdersRepository ordersRepository)
     {
+        _logger = logger;
         _bankClient = bankClient;
         _productsClient = productsClient;
         _emailClient = emailClient;
@@ -27,7 +30,7 @@ public class OrderProcessor
 
     public async Task CompleteOrder(Domain.Order order)
     {
-        Console.WriteLine($"Started {nameof(CompleteOrder)} invocation");
+        _logger.LogInformation($"Started {nameof(CompleteOrder)} invocation");
         var productPrices = await _productsClient.GetProductPrices(order.ProductIds);
         var totalPrice = productPrices.Sum(p => p.Price);
         
@@ -37,6 +40,6 @@ public class OrderProcessor
         await _emailClient.SendOrderConfirmation(order.CustomerId, order.ProductIds);
 
         await _ordersRepository.Insert(order);
-        Console.WriteLine($"Completed {nameof(CompleteOrder)} invocation");
+        _logger.LogInformation($"Completed {nameof(CompleteOrder)} invocation");
     }
 }
