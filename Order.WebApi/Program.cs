@@ -1,6 +1,7 @@
 using Dapper;
 using Order.WebApi.BusinessLogic;
 using Order.WebApi.Communication;
+using Order.WebApi.Communication.Messaging;
 using Order.WebApi.DataAccess;
 
 namespace Order.WebApi;
@@ -21,6 +22,9 @@ internal static class Program
         builder.Services.AddSingleton<IProductsClient, ProductsClientStub>();
         builder.Services.AddSingleton<IEmailClient, EmailClientStub>();
         builder.Services.AddSingleton<ILogisticsClient, LogisticsClientStub>();
+
+        var messageQueue = CreateAndSetupMessageQueue();
+        builder.Services.AddSingleton(messageQueue);
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -55,5 +59,12 @@ internal static class Program
                 customer_id UUID
             );"
         );
+    }
+
+    private static MessageQueue CreateAndSetupMessageQueue()
+    {
+        var messageQueue = new MessageQueue();
+        _ = new EmailServiceStub(messageQueue);
+        return messageQueue;
     }
 }
