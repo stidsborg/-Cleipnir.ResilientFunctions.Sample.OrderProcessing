@@ -21,9 +21,7 @@ public class OrdersController : ControllerBase
     {
         try
         {
-            _logger.LogInformation("Started order processing: '{OrderId}'", order.OrderId);
             await _orderProcessor.CompleteOrder(order);
-            _logger.LogInformation("Completed order processing: '{OrderId}'", order.OrderId);
         }
         catch (Exception e)
         {

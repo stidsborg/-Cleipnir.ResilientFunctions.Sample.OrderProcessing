@@ -30,19 +30,16 @@ public class OrderProcessor
 
     public async Task CompleteOrder(Domain.Order order)
     {
-        _logger.LogInformation($"Started {nameof(CompleteOrder)} invocation");
+        Console.WriteLine("ORDER_PROCESSOR: Started order processing");
         var productPrices = await _productsClient.GetProductPrices(order.ProductIds);
         var totalPrice = productPrices.Sum(p => p.Price);
-        
-        _logger.LogInformation($"Processing order: {order.OrderId}");
-        await Task.Delay(5_000);
-        
+
         await _bankClient.Reserve(totalPrice);
         await _logisticsClient.ShipProducts(order.CustomerId, order.ProductIds);
         await _bankClient.Capture();
         await _emailClient.SendOrderConfirmation(order.CustomerId, order.ProductIds);
 
         await _ordersRepository.Insert(order);
-        _logger.LogInformation($"Completed {nameof(CompleteOrder)} invocation");
+        Console.WriteLine("ORDER_PROCESSOR: Completed order processing");
     }
 }

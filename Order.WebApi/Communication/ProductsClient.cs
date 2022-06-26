@@ -9,6 +9,10 @@ public interface IProductsClient
 
 public class ProductsClientStub : IProductsClient
 {
-    public Task<IEnumerable<ProductPrice>> GetProductPrices(IEnumerable<Guid> productIds) 
-        => Task.FromResult(productIds.Select(id => new ProductPrice(id, 100M)));
+    public Task<IEnumerable<ProductPrice>> GetProductPrices(IEnumerable<Guid> productIds)
+        => Task.Delay(1_000).ContinueWith(_ =>
+        {
+            Console.WriteLine("PRODUCTS_SERVER: Product prices calculated");
+            return productIds.Select(id => new ProductPrice(id, 100M));
+        });
 }

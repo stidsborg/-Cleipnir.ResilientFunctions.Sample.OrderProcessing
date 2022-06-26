@@ -9,7 +9,10 @@ public interface IBankClient
 
 public class BankClientStub : IBankClient
 {
-    public Task Reserve(decimal amount) => Task.CompletedTask;
-    public Task Capture() => Task.CompletedTask;
-    public Task CancelReservation() => Task.CompletedTask;
+    public Task Reserve(decimal amount) 
+        => Task.Delay(1_000).ContinueWith(_ => Console.WriteLine($"BANK: Reserved '{amount}'"));
+    public Task Capture() 
+        => Task.Delay(1_000).ContinueWith(_ => Console.WriteLine("BANK: Reserved amount captured"));
+    public Task CancelReservation() 
+        => Task.Delay(1_000).ContinueWith(_ => Console.WriteLine("BANK: Reservation cancelled"));
 }
