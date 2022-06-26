@@ -27,7 +27,7 @@ public class OrderProcessor
 
     public async Task CompleteOrder(Domain.Order order)
     {
-        Console.WriteLine("ORDER_PROCESSOR: Started order processing");
+        Console.WriteLine($"ORDER_PROCESSOR: Started processing order: '{order.OrderId}'");
         var productPrices = await _productsClient.GetProductPrices(order.ProductIds);
         var totalPrice = productPrices.Sum(p => p.Price);
 
@@ -37,6 +37,6 @@ public class OrderProcessor
         await _emailClient.SendOrderConfirmation(order.CustomerId, order.ProductIds);
 
         await _ordersRepository.Insert(order);
-        Console.WriteLine("ORDER_PROCESSOR: Completed order processing");
+        Console.WriteLine($"ORDER_PROCESSOR: Completed processing order: '{order.OrderId}'");
     }
 }
