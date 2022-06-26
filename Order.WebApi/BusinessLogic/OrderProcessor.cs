@@ -5,7 +5,6 @@ namespace Order.WebApi.BusinessLogic;
 
 public class OrderProcessor
 {
-    private readonly ILogger<OrderProcessor> _logger;
     private readonly IBankClient _bankClient;
     private readonly IProductsClient _productsClient;
     private readonly IEmailClient _emailClient;
@@ -13,14 +12,12 @@ public class OrderProcessor
     private readonly IOrdersRepository _ordersRepository;
 
     public OrderProcessor(
-        ILogger<OrderProcessor> logger,
         IBankClient bankClient, 
         IProductsClient productsClient, 
         IEmailClient emailClient, 
         ILogisticsClient logisticsClient, 
         IOrdersRepository ordersRepository)
     {
-        _logger = logger;
         _bankClient = bankClient;
         _productsClient = productsClient;
         _emailClient = emailClient;
