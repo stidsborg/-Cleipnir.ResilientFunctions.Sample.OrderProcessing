@@ -1,5 +1,4 @@
-﻿using Cleipnir.ResilientFunctions.Helpers;
-using Order.WebApi.Domain;
+﻿using Order.WebApi.Domain;
 
 namespace Order.WebApi.Communication;
 
@@ -11,5 +10,5 @@ public interface IProductsClient
 public class ProductsClientStub : IProductsClient
 {
     public Task<IEnumerable<ProductPrice>> GetProductPrices(IEnumerable<Guid> productIds) 
-        => productIds.Select(id => new ProductPrice(id, 100M)).ToTask();
+        => Task.FromResult(productIds.Select(id => new ProductPrice(id, 100M)));
 }
