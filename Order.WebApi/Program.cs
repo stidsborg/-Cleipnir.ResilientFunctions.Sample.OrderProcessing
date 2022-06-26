@@ -10,6 +10,8 @@ internal static class Program
 {
     private static async Task Main(string[] args)
     {
+        var port = args.Any() ? int.Parse(args[0]) : 5000;
+        
         const string connectionString = "Server=localhost;Port=5432;Userid=postgres;Password=Pa55word!;Database=postgres;";
         await InitializeTable(connectionString);
         var builder = WebApplication.CreateBuilder(args);
@@ -34,19 +36,16 @@ internal static class Program
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
+        app.UseSwagger();
+        app.UseSwaggerUI(options =>
         {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-
-        app.UseHttpsRedirection();
-
-        app.UseAuthorization();
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Orders API");
+            options.RoutePrefix = string.Empty;
+        });
 
         app.MapControllers();
 
-        await app.RunAsync();
+        await app.RunAsync($"http://localhost:{port}");
     }
 
     private static async Task InitializeTable(string connectionString)
@@ -54,7 +53,7 @@ internal static class Program
         await using var conn = await SqlConnectionFactory.Create(connectionString);
         await conn.ExecuteAsync(@"
             CREATE TABLE IF NOT EXISTS orders (
-                order_id UUID PRIMARY KEY,
+                order_id VARCHAR(255) PRIMARY KEY,
                 products TEXT,
                 customer_id UUID
             );"
