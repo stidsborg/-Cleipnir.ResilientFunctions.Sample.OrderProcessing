@@ -34,6 +34,9 @@ public class OrderProcessor
         var productPrices = await _productsClient.GetProductPrices(order.ProductIds);
         var totalPrice = productPrices.Sum(p => p.Price);
         
+        _logger.LogInformation($"Processing order: {order.OrderId}");
+        await Task.Delay(5_000);
+        
         await _bankClient.Reserve(totalPrice);
         await _logisticsClient.ShipProducts(order.CustomerId, order.ProductIds);
         await _bankClient.Capture();
