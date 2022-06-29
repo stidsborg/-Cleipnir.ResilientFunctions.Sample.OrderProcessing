@@ -21,7 +21,8 @@ public class OrdersController : ControllerBase
     {
         try
         {
-            await _orderProcessor.CompleteOrder(order);
+            var orderId = order.OrderId;
+            await _orderProcessor.CompleteOrder(orderId, order);
         }
         catch (Exception e)
         {

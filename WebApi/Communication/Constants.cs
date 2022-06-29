@@ -2,5 +2,5 @@
 
 public static class Constants
 {
-    public const int ExternalServiceDelay = 100;    
+    public const int ExternalServiceDelay = 1000;    
 }
