@@ -1,5 +1,6 @@
 ﻿using Orders.WebApi.Communication;
 using Orders.WebApi.DataAccess;
+using Orders.WebApi.Domain;
 
 namespace Orders.WebApi.BusinessLogic;
 
@@ -25,7 +26,7 @@ public class OrderProcessor
         _ordersRepository = ordersRepository;
     }
 
-    public async Task CompleteOrder(Domain.Order order)
+    public async Task CompleteOrder(Order order)
     {
         Console.WriteLine($"ORDER_PROCESSOR: Started processing order: '{order.OrderId}'");
         var productPrices = await _productsClient.GetProductPrices(order.ProductIds);
