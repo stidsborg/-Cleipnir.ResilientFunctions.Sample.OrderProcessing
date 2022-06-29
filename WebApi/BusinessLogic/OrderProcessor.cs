@@ -1,12 +1,10 @@
-﻿using Cleipnir.ResilientFunctions;
-using Cleipnir.ResilientFunctions.AspNetCore;
-using Orders.WebApi.Communication;
+﻿using Orders.WebApi.Communication;
 using Orders.WebApi.DataAccess;
 using Orders.WebApi.Domain;
 
 namespace Orders.WebApi.BusinessLogic;
 
-public class OrderProcessor : IRegisterRFuncOnInstantiation
+public class OrderProcessor
 {
     private readonly IBankClient _bankClient;
     private readonly IProductsClient _productsClient;
@@ -15,7 +13,6 @@ public class OrderProcessor : IRegisterRFuncOnInstantiation
     private readonly IOrdersRepository _ordersRepository;
 
     public OrderProcessor(
-        RFunctions rFunctions, 
         IBankClient bankClient, 
         IProductsClient productsClient, 
         IEmailClient emailClient, 
@@ -27,15 +24,9 @@ public class OrderProcessor : IRegisterRFuncOnInstantiation
         _emailClient = emailClient;
         _logisticsClient = logisticsClient;
         _ordersRepository = ordersRepository;
-        
-        CompleteOrder = rFunctions.RegisterAction<Order>(
-            functionTypeId: nameof(OrderProcessor),
-            inner: _CompleteOrder
-        ).Invoke;
     }
 
-    public readonly RAction.Invoke<Order> CompleteOrder;
-    private async Task _CompleteOrder(Order order)
+    public async Task CompleteOrder(Order order)
     {
         Console.WriteLine($"ORDER_PROCESSOR: Started processing order: '{order.OrderId}'");
         var productPrices = await _productsClient.GetProductPrices(order.ProductIds);

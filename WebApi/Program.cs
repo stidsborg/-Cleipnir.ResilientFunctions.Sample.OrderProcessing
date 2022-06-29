@@ -1,6 +1,3 @@
-using Cleipnir.ResilientFunctions;
-using Cleipnir.ResilientFunctions.AspNetCore;
-using Cleipnir.ResilientFunctions.PostgreSQL;
 using Dapper;
 using Orders.WebApi.BusinessLogic;
 using Orders.WebApi.Communication;
@@ -19,16 +16,6 @@ internal static class Program
         await InitializeTable(connectionString);
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddRFunctionsService(
-            store: _ => new PostgreSqlFunctionStore(connectionString),
-            settings: _ => new Settings(
-                UnhandledExceptionHandler: Console.WriteLine,
-                CrashedCheckFrequency: TimeSpan.FromSeconds(5),
-                PostponedCheckFrequency: TimeSpan.FromSeconds(5)
-            ),
-            gracefulShutdown: false
-        );
-        
         // Add services to the container.
         builder.Services.AddSingleton(new SqlConnectionFactory(connectionString));
         builder.Services.AddSingleton<OrderProcessor>();
