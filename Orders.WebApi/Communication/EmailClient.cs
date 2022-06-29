@@ -1,4 +1,4 @@
-﻿namespace Order.WebApi.Communication;
+﻿namespace Orders.WebApi.Communication;
 
 public interface IEmailClient
 {

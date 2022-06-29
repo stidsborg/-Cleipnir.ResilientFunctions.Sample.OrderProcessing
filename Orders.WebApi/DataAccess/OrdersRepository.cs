@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using Dapper;
 
-namespace Order.WebApi.DataAccess;
+namespace Orders.WebApi.DataAccess;
 
 public interface IOrdersRepository
 {

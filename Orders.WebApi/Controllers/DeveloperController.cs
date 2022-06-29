@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Order.WebApi.DataAccess;
+using Orders.WebApi.DataAccess;
 
-namespace Order.WebApi.Controllers;
+namespace Orders.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]

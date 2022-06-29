@@ -1,4 +1,4 @@
-﻿namespace Order.WebApi.Communication.Messaging;
+﻿namespace Orders.WebApi.Communication.Messaging;
 
 public class MessageQueue
 {

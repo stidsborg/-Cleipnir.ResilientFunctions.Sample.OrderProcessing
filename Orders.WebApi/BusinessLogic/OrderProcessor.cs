@@ -1,7 +1,7 @@
-﻿using Order.WebApi.Communication;
-using Order.WebApi.DataAccess;
+﻿using Orders.WebApi.Communication;
+using Orders.WebApi.DataAccess;
 
-namespace Order.WebApi.BusinessLogic;
+namespace Orders.WebApi.BusinessLogic;
 
 public class OrderProcessor
 {

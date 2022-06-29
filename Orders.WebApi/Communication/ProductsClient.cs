@@ -1,6 +1,6 @@
-﻿using Order.WebApi.Domain;
+﻿using Orders.WebApi.Domain;
 
-namespace Order.WebApi.Communication;
+namespace Orders.WebApi.Communication;
 
 public interface IProductsClient
 {

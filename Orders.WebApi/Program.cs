@@ -1,10 +1,10 @@
 using Dapper;
-using Order.WebApi.BusinessLogic;
-using Order.WebApi.Communication;
-using Order.WebApi.Communication.Messaging;
-using Order.WebApi.DataAccess;
+using Orders.WebApi.BusinessLogic;
+using Orders.WebApi.Communication;
+using Orders.WebApi.Communication.Messaging;
+using Orders.WebApi.DataAccess;
 
-namespace Order.WebApi;
+namespace Orders.WebApi;
 
 internal static class Program
 {

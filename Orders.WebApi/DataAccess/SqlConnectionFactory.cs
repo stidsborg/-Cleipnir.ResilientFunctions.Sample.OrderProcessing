@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace Order.WebApi.DataAccess;
+namespace Orders.WebApi.DataAccess;
 
 public class SqlConnectionFactory
 {
