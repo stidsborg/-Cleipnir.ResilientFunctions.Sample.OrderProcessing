@@ -8,5 +8,5 @@ public interface IEmailClient
 public class EmailClientStub : IEmailClient
 {
     public Task SendOrderConfirmation(Guid customerId, IEnumerable<Guid> productIds)
-        => Task.Delay(1000).ContinueWith(_ => Console.WriteLine("EMAIL_SERVER: Order confirmation emailed"));
+        => Task.Delay(Constants.ExternalServiceDelay).ContinueWith(_ => Console.WriteLine("EMAIL_SERVER: Order confirmation emailed"));
 }
