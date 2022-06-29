@@ -13,9 +13,9 @@ internal static class Program
         }
         catch (Exception)
         {
-            Console.WriteLine("Usage: PostRandomOrder port");
-            return -1;
+            port = 5000;
         }
+        Console.WriteLine("Using port: 5000");
 
         var httpClient = new HttpClient();
         var orderId = Guid.NewGuid().ToString();
