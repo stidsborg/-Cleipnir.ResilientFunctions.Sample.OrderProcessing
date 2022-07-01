@@ -7,18 +7,20 @@ public class EmailServiceStub
     public EmailServiceStub(MessageQueue messageQueue)
     {
         _messageQueue = messageQueue;
-        messageQueue.Subscribers += MessageHandler;
+        messageQueue.Subscribe(MessageHandler);
     }
 
-    private void MessageHandler(object message)
+    private Task MessageHandler(object message)
     {
         if (message is not SendOrderConfirmationEmail command)
-            return;
+            return Task.CompletedTask;
 
         Task.Run(async () =>
         {
             await Task.Delay(1_000);
             _messageQueue.Send(new OrderConfirmationEmailSent(command.RequestId, command.CustomerId));
         });
+
+        return Task.CompletedTask;
     }
 }
