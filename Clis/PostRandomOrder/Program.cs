@@ -4,7 +4,7 @@ namespace PostRandomOrder;
 
 internal static class Program
 {
-    private static int Main(string[] args)
+    private static void Main(string[] args)
     {
         int port;
         try
@@ -36,6 +36,5 @@ internal static class Program
         request.Content = new StringContent(body, Encoding.UTF8, "application/json");
         var response = httpClient.Send(request);
         response.EnsureSuccessStatusCode();
-        return 0;
     }
 }
