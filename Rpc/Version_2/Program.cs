@@ -1,5 +1,8 @@
+using System.Diagnostics;
 using Cleipnir.ResilientFunctions.AspNetCore.Core;
 using Cleipnir.ResilientFunctions.AspNetCore.Postgres;
+using Cleipnir.ResilientFunctions.PostgreSQL;
+using Sample.WebApi.Ordering;
 using Serilog;
 using Serilog.Events;
 
@@ -11,9 +14,8 @@ internal static class Program
     {
         var port = args.Any() ? int.Parse(args[0]) : 5000;
         
-        const string connectionString = "Server=localhost;Port=5432;Userid=postgres;Password=Pa55word!;Database=kodedyret;";
-        //await DatabaseHelper.RecreateDatabase(connectionString);
-        
+        await Database.CreateIfNotExists();
+        //await Database.RecreateDatabase();
         var builder = WebApplication.CreateBuilder(args);
 
         Log.Logger = new LoggerConfiguration()
@@ -22,12 +24,12 @@ internal static class Program
             .WriteTo.Console()
             .CreateLogger();
         
-        // Add services to the container.
-        V0.IoCBindings.AddBindings(builder.Services);
+        // Add order processing dependencies
+        builder.Services.AddOrderProcessingBindings();
         
-        //todo add this line to get started using Resilient Functions
+        //add Resilient Functions dependencies
         builder.Services.UseResilientFunctions( 
-            connectionString,
+            Database.ConnectionString,
             _ => new Options(
                 unhandledExceptionHandler: rfe => Log.Logger.Error(rfe, "ResilientFrameworkException occured"),
                 crashedCheckFrequency: TimeSpan.FromSeconds(1)
