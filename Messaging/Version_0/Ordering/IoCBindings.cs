@@ -1,5 +1,4 @@
 ﻿using Sample.WebApi.ExternalServices;
-using Sample.WebApi.V4;
 
 namespace Sample.WebApi.Ordering;
 

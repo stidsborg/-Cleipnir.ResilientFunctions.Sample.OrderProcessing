@@ -5,10 +5,9 @@ using Cleipnir.ResilientFunctions.Domain;
 using Cleipnir.ResilientFunctions.Reactive;
 using Sample.WebApi.ExternalServices;
 using Sample.WebApi.Messages;
-using Sample.WebApi.Ordering;
 using Serilog;
 
-namespace Sample.WebApi.V4;
+namespace Sample.WebApi.Ordering;
 
 public class OrderProcessor : IRegisterRFuncOnInstantiation
 {

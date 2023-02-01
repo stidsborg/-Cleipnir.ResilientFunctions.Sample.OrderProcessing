@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Sample.WebApi.Ordering;
-using Sample.WebApi.V4;
 
 namespace Sample.WebApi.Controllers;
 
