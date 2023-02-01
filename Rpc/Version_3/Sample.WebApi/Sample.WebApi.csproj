@@ -15,16 +15,16 @@
 
     <ItemGroup>
       <Reference Include="Cleipnir.ResilientFunctions">
-        <HintPath>..\..\Dependencies\Cleipnir.ResilientFunctions.dll</HintPath>
+        <HintPath>..\..\..\Dependencies\Cleipnir.ResilientFunctions.dll</HintPath>
       </Reference>
       <Reference Include="Cleipnir.ResilientFunctions.AspNetCore.Core">
-        <HintPath>..\..\Dependencies\Cleipnir.ResilientFunctions.AspNetCore.Core.dll</HintPath>
+        <HintPath>..\..\..\Dependencies\Cleipnir.ResilientFunctions.AspNetCore.Core.dll</HintPath>
       </Reference>
       <Reference Include="Cleipnir.ResilientFunctions.AspNetCore.Postgres">
-        <HintPath>..\..\Dependencies\Cleipnir.ResilientFunctions.AspNetCore.Postgres.dll</HintPath>
+        <HintPath>..\..\..\Dependencies\Cleipnir.ResilientFunctions.AspNetCore.Postgres.dll</HintPath>
       </Reference>
       <Reference Include="Cleipnir.ResilientFunctions.PostgreSQL">
-        <HintPath>..\..\Dependencies\Cleipnir.ResilientFunctions.PostgreSQL.dll</HintPath>
+        <HintPath>..\..\..\Dependencies\Cleipnir.ResilientFunctions.PostgreSQL.dll</HintPath>
       </Reference>
     </ItemGroup>
 </Project>

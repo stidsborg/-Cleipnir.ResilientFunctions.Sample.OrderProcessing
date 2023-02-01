@@ -35,7 +35,7 @@ public class OrderProcessor : IRegisterRFuncOnInstantiation
             _logisticsClient = logisticsClient;
         }
 
-        public async Task ProcessOrder(Order order, Scrapbook scrapbook, Context context)
+        public async Task ProcessOrder(Order order, Scrapbook scrapbook)
         {
             Log.Logger.Information($"ORDER_PROCESSOR: Processing of order '{order.OrderId}' started");
             
